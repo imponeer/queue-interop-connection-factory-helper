@@ -1,0 +1,24 @@
+{
+    "name": "imponeer/queue-interop-connection-factory-helper",
+    "description": "Helper that creates queue-interop connection factory based on DSN",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Raimondas Rimkevičius",
+            "email": "github@mekdrop.name"
+        }
+    ],
+    "require": {
+        "queue-interop/queue-interop": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.1",
+        "jchook/phpunit-assert-throws": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Imponeer\\QueueInteropConnectionFactoryHelper\\": "src/"
+        }
+    }
+}

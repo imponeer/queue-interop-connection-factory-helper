@@ -1,0 +1,11 @@
+language: php
+
+php:
+  - 7.2
+  - 7.3
+
+install:
+  - composer install --optimize-autoloader --no-suggest --no-interaction
+
+script:
+  - vendor/bin/phpunit
