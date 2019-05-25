@@ -10,10 +10,10 @@
         }
     ],
     "require": {
+		"php": ">=7.2",
         "queue-interop/queue-interop": "*"
     },
     "require-dev": {
-		"php": ">=7.2",
         "phpunit/phpunit": "^8.1",
         "jchook/phpunit-assert-throws": "^1.0"
     },
