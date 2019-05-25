@@ -3,9 +3,27 @@ language: php
 php:
   - 7.2
   - 7.3
+  
+stages:
+  - validate
+  - test
 
 install:
-  - composer install --optimize-autoloader --no-suggest --no-interaction
-
-script:
-  - vendor/bin/phpunit
+  -  travis_retry composer install --optimize-autoloader --no-suggest --no-interaction
+  
+jobs:
+  include:
+    - stage: validate
+      php: 7.2
+      script:
+        - composer validate
+    - stage: test
+      php: 7.2
+      script:
+        - vendor/bin/phpunit
+      after_script:
+        - ./vendor/bin/test-reporter --coverage-report=./build/logs/clover.xml
+    - stage: test
+      php: 7.3
+      script:
+        - vendor/bin/phpunit
