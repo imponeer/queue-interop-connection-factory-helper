@@ -61,7 +61,7 @@ class QueueInteropConnectionFactoryHelperTest extends TestCase
                     QueueConnectionFactoryHelper::getFactory($dsn);
                 },
                 function ($e) {
-                    self::assertRegExp("/Class '([^']+)' not found/", $e->getMessage(), "Bad error message");
+                    self::assertRegExp("/Class \"([^\"]+)\" not found|Class '([^']+)' not found/", $e->getMessage(), "Bad error message");
                 }
             );
         }
