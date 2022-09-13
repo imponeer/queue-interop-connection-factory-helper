@@ -17,7 +17,7 @@ class QueueConnectionFactoryHelper {
     /**
      * Disabled constructor
      */
-    private function __constructor() {
+    private function __construct() {
 
     }
 
