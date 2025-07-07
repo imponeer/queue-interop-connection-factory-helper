@@ -2,20 +2,20 @@
 
 # Queue-Interop Connection Factory Helper
 
-Helper that creates [queue-interop](https://github.com/queue-interop/queue-interop) connection factory from DSN string.
+A PHP library that simplifies creating [queue-interop](https://github.com/queue-interop/queue-interop) connection factories from DSN (Data Source Name) strings. This helper allows you to easily configure and instantiate queue connections for various message queue systems using a unified DSN format.
 
-## Instalation
+## Installation
 
 `composer require imponeer/queue-interop-connection-factory-helper`
 
-## Supported queue-interop libraries
+## Supported Queue Transports
 
-If you want to use specific transport you must also include related library in your project
+To use a specific transport, you must also include the corresponding library in your project:
 
-| Transport | Prefix | Library | 
+| Transport | Prefix | Library |
 |----------|---------|---------|
 | [AMQP](https://www.amqp.org)     | amqp | [enqueue/amqp-ext](https://github.com/php-enqueue/enqueue-dev/tree/master/docs/transport/amqp.md) <br> [enqueue/amqp-lib](https://github.com/php-enqueue/enqueue-dev/tree/master/docs/transport/amqp_lib.md) <br > [enqueue/amqp-bunny](https://github.com/php-enqueue/enqueue-dev/tree/master/docs/transport/amqp_bunny.md) |
-| [Beanstalk](https://beanstalkd.github.io) | beanstalk | [enqueue/pheanstalk](https://github.com/php-enqueue/enqueue-dev/tree/master/docs/transport/pheanstalk.md) | 
+| [Beanstalk](https://beanstalkd.github.io) | beanstalk | [enqueue/pheanstalk](https://github.com/php-enqueue/enqueue-dev/tree/master/docs/transport/pheanstalk.md) |
 | [Stomp](https://stomp.github.io) | stomp | [enqueue/stomp](https://github.com/php-enqueue/enqueue-dev/tree/master/docs/transport/stomp.md) |
 | [Amazon Simple Queue Service (SQS)](https://aws.amazon.com/sqs/) | sqs | [enqueue/sqs](https://github.com/php-enqueue/enqueue-dev/tree/master/docs/transport/sqs.md) |
 | [Google PubSub](https://cloud.google.com/pubsub/docs/overview) | gps | [enqueue/gps](https://github.com/php-enqueue/enqueue-dev/tree/master/docs/transport/gps.md) |
@@ -28,7 +28,7 @@ If you want to use specific transport you must also include related library in y
 | Null | null | [enqueue/null](https://github.com/php-enqueue/enqueue-dev/tree/master/docs/transport/null.md) |
 | [Wamp](https://wamp-proto.org) | wamp<br>ws | [enqueue/wamp](https://github.com/php-enqueue/enqueue-dev/tree/master/docs/transport/wamp.md) |
 
-## Example
+## Usage
 
 ```php
 use Imponeer\QueueInteropConnectionFactoryHelper;
@@ -36,8 +36,42 @@ use Imponeer\QueueInteropConnectionFactoryHelper;
 $context = QueueInteropConnectionFactoryHelper::createContext('file:');
 ```
 
-## How to contribute?
+## Development
 
-If you want to add some functionality or fix bugs, you can fork, change and create pull request. If you not sure how this works, try [interactive GitHub tutorial](https://skills.github.com).
+This project includes several development tools to maintain code quality:
 
-If you found any bug or have some questions, use [issues tab](https://github.com/imponeer/queue-interop-connection-factory-helper/issues) and write there your questions.
+Run tests with testdox output:
+```bash
+composer test
+```
+
+Check code style (PSR-12):
+```bash
+composer phpcs
+```
+
+Fix code style issues automatically:
+```bash
+composer phpcbf
+```
+
+Run static analysis:
+```bash
+composer phpstan
+```
+
+## API Documentation
+
+[Full API documentation](https://github.com/imponeer/queue-interop-connection-factory-helper/wiki) is available in the repository wiki. Documentation is automatically updated with every release.
+
+## How to Contribute
+
+Contributions are welcome! To contribute:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run the development tools to ensure code quality
+5. Submit a pull request
+
+For bug reports or questions, please use the [issues tab](https://github.com/imponeer/queue-interop-connection-factory-helper/issues).
