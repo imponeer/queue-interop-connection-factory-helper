@@ -185,6 +185,9 @@ final class QueueConnectionFactoryHelper
         throw new ComposerPackageMissingException($supportedPackages);
     }
 
+    /**
+     * @param string[] $extensions
+     */
     private static function hasAllRequiredPhpExtensions(array $extensions): bool
     {
         if (empty($extensions)) {

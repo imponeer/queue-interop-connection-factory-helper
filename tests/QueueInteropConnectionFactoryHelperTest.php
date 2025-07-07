@@ -18,6 +18,9 @@ use PHPUnit\Framework\TestCase;
  */
 final class QueueInteropConnectionFactoryHelperTest extends TestCase
 {
+    /**
+     * @return array<string, array{dsn: string}>
+     */
     public static function provideEmptyDSNString(): array
     {
         return [
@@ -42,6 +45,9 @@ final class QueueInteropConnectionFactoryHelperTest extends TestCase
         }
     }
 
+    /**
+     * @return array<string, array{dsn: string}>
+     */
     public static function provideGoodDsn(): array
     {
         return [
