@@ -9,6 +9,9 @@ use Throwable;
 
 class ComposerPackageMissingException extends RuntimeException
 {
+    /**
+     * @param string[] $composerPackages
+     */
     public function __construct(
         public readonly array $composerPackages,
         int $code = 0,
