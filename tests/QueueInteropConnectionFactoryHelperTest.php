@@ -43,7 +43,7 @@ final class QueueInteropConnectionFactoryHelperTest extends TestCase
 		}
 	}
 
-	public static function provideGoodDSN(): array
+	public static function provideGoodDsn(): array
 	{
 		return [
 			'amqp' => [
@@ -95,8 +95,8 @@ final class QueueInteropConnectionFactoryHelperTest extends TestCase
 	 * @throws DSNNotSupportedException
 	 * @throws EmptyDsnException
 	 */
-	#[DataProvider('provideGoodDSN')]
-	public function testIfGoodDNSIsResolvingCorrectly(string $dsn): void
+	#[DataProvider('provideGoodDsn')]
+	public function testIfGoodDsnIsResolvingCorrectly(string $dsn): void
 	{
 		$this->expectException(ComposerPackageMissingException::class);
 		QueueConnectionFactoryHelper::getFactory($dsn);
@@ -105,7 +105,7 @@ final class QueueInteropConnectionFactoryHelperTest extends TestCase
 	/**
 	 * @throws EmptyDsnException
 	 */
-	public function testIfUnknownDSNIsResolvingCorrectly(): void
+	public function testIfUnknownDsnIsResolvingCorrectly(): void
 	{
 		$this->expectException(DSNNotSupportedException::class);
 		QueueConnectionFactoryHelper::getFactory(sha1((string)microtime(true)) . ':');
@@ -115,7 +115,7 @@ final class QueueInteropConnectionFactoryHelperTest extends TestCase
 	 * @throws DSNNotSupportedException
 	 */
 	#[DataProvider('provideEmptyDSNString')]
-	public function testEmptyDSNString(string $dsn): void
+	public function testEmptyDsnString(string $dsn): void
 	{
 		$this->expectException(EmptyDsnException::class);
 		QueueConnectionFactoryHelper::getFactory($dsn);
