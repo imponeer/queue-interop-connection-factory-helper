@@ -1,31 +1,56 @@
 {
-  "name": "imponeer/queue-interop-connection-factory-helper",
-  "description": "Helper that creates queue-interop connection factory based on DSN",
-  "type": "library",
-  "license": "MIT",
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "authors": [
-	{
-	  "name": "Raimondas Rimkevičius",
-	  "email": "github@mekdrop.name"
+	"name": "imponeer/queue-interop-connection-factory-helper",
+	"description": "Helper that creates queue-interop connection factory based on DSN",
+	"type": "library",
+	"license": "MIT",
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"authors": [
+		{
+			"name": "Raimondas Rimkevičius",
+			"email": "github@mekdrop.name"
+		}
+	],
+	"require": {
+		"php": "^8.3",
+		"queue-interop/queue-interop": "^0.8"
+	},
+	"require-dev": {
+		"jchook/phpunit-assert-throws": "^1.0",
+		"phpunit/phpunit": "^10.0"
+	},
+	"suggest": {
+		"enqueue/amqp-bunny": "For AMQP Bunny queue support",
+		"enqueue/amqp-ext": "For AMQP extension queue support",
+		"enqueue/amqp-lib": "For AMQP Lib queue support",
+		"enqueue/dbal": "For DBAL/MySQL queue support",
+		"enqueue/fs": "For filesystem queue support",
+		"enqueue/gearman": "For Gearman queue support",
+		"enqueue/gps": "For Google Pub/Sub queue support",
+		"enqueue/mongodb": "For MongoDB queue support",
+		"enqueue/null": "For null queue support (testing)",
+		"enqueue/pheanstalk": "For Beanstalk queue support",
+		"enqueue/rdkafka": "For Apache Kafka queue support",
+		"enqueue/redis": "For Redis queue support",
+		"enqueue/sqs": "For Amazon SQS queue support",
+		"enqueue/stomp": "For STOMP queue support",
+		"enqueue/wamp": "For WAMP queue support"
+	},
+	"config": {
+		"optimize-autoloader": true,
+		"sort-packages": true
+	},
+	"autoload": {
+		"psr-4": {
+			"Imponeer\\QueueInteropConnectionFactoryHelper\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Imponeer\\QueueInteropConnectionFactoryHelper\\Tests\\": "tests/"
+		}
+	},
+	"scripts": {
+		"test": "phpunit"
 	}
-  ],
-  "require": {
-	"php": ">=7.2",
-	"queue-interop/queue-interop": "^0.8"
-  },
-  "require-dev": {
-	"phpunit/phpunit": "^8.1",
-	"jchook/phpunit-assert-throws": "^1.0"
-  },
-  "config": {
-	"optimize-autoloader": true,
-	"sort-packages": true
-  },
-  "autoload": {
-	"psr-4": {
-	  "Imponeer\\QueueInteropConnectionFactoryHelper\\": "src/"
-	}
-  }
 }

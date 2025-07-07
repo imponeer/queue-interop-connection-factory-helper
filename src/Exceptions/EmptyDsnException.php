@@ -7,24 +7,22 @@ namespace Imponeer\QueueInteropConnectionFactoryHelper\Exceptions;
 use Exception;
 
 /**
- * Exception raised when helper can't find possible connection factory from DSN
+ * Exception thrown when DSN was empty
  *
  * @package Imponeer\QueueInteropConnectionFactoryHelper\Exceptions
  */
-final class DSNNotSupportedException extends Exception
+final class EmptyDsnException extends Exception
 {
     /**
-     * DSNNotSupportedException constructor.
+     * EmptyDSNException constructor.
      *
-     * @param string $driver Driver that is not supported
      * @param int $code Error code
      * @param Exception|null $previous Previous exception
      */
     public function __construct(
-        public readonly string $driver,
         int $code = 0,
         ?Exception $previous = null
     ) {
-        parent::__construct("Driver '{$this->driver}' is not supported", $code, $previous);
+        parent::__construct('DSN cannot be empty', $code, $previous);
     }
 }
