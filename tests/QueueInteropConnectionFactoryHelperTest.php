@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imponeer\QueueInteropConnectionFactoryHelper\Tests;
 
+use Imponeer\QueueInteropConnectionFactoryHelper\Exceptions\ComposerPackageMissingException;
 use Imponeer\QueueInteropConnectionFactoryHelper\Exceptions\DSNNotSupportedException;
-use Imponeer\QueueInteropConnectionFactoryHelper\Exceptions\EmptyDSNException;
+use Imponeer\QueueInteropConnectionFactoryHelper\Exceptions\EmptyDsnException;
 use Imponeer\QueueInteropConnectionFactoryHelper\QueueConnectionFactoryHelper;
-use Jchook\AssertThrows\AssertThrows;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -13,79 +16,109 @@ use PHPUnit\Framework\TestCase;
  *
  * @package Imponeer\QueueInteropConnectionFactoryHelper\Tests
  */
-class QueueInteropConnectionFactoryHelperTest extends TestCase
+final class QueueInteropConnectionFactoryHelperTest extends TestCase
 {
 
-    use AssertThrows;
+	public static function provideEmptyDSNString(): array
+	{
+		return [
+			'spaces' => [
+				'dsn' => ' '
+			],
+			'empty' => [
+				'dsn' => ''
+			],
+		];
+	}
 
-    /**
-     * Test if required static methods exists
-     */
-    public function testStaticMethodsExists() {
-        foreach (['getFactory', 'createContext'] as $method) {
-            self::assertTrue(
-                method_exists(
-                    QueueConnectionFactoryHelper::class,
-                    $method
-                ),
-                "$method not exist in " .  QueueConnectionFactoryHelper::class
-            );
-        }
-    }
+	public function testStaticMethodsExists(): void
+	{
+		$requiredMethods = ['getFactory', 'createContext'];
 
-    /**
-     * Test that all registered DNS'es resolves to something
-     */
-    public function testIfGoodDNSIsResolvingCorrectly() {
-        $dsn_to_test = [
-            'amqp',
-            'stomp',
-            'gps',
-            'gearman',
-            'null',
-            'file',
-            'beanstalk',
-            'sqs',
-            'kafka',
-            'redis',
-            'mongodb',
-            'mysql',
-            'wamp',
-            'ws'
-        ];
-        foreach ($dsn_to_test as $dsn_prefix) {
-            $dsn = $dsn_prefix . ':';
-            $this->assertThrows(
-                \Error::class,
-                function() use($dsn) {
-                    QueueConnectionFactoryHelper::getFactory($dsn);
-                },
-                function ($e) {
-                    self::assertRegExp("/Class \"([^\"]+)\" not found|Class '([^']+)' not found/", $e->getMessage(), "Bad error message");
-                }
-            );
-        }
-    }
+		foreach ($requiredMethods as $method) {
+			self::assertTrue(
+				method_exists(QueueConnectionFactoryHelper::class, $method),
+				"Method '{$method}' does not exist in " . QueueConnectionFactoryHelper::class
+			);
+		}
+	}
 
-    /**
-     * Test if unknown DSN throws DSNNotSupportedException
-     */
-    public function testIfUnknownDSNIsResolvingCorrectly() {
-        $this->assertThrows(DSNNotSupportedException::class, function () {
-            QueueConnectionFactoryHelper::getFactory(sha1(microtime(true)) . ':');
-        });
-    }
+	public static function provideGoodDSN(): array
+	{
+		return [
+			'amqp' => [
+				'dsn' => 'amqp://localhost'
+			],
+			'stomp' => [
+				'dsn' => 'stomp://localhost'
+			],
+			'gps' => [
+				'dsn' => 'gps://localhost'
+			],
+			'gearman' => [
+				'dsn' => 'gearman://localhost'
+			],
+			'null' => [
+				'dsn' => 'null://'
+			],
+			'file' => [
+				'dsn' => 'file://localhost.txt'
+			],
+			'beanstalk' => [
+				'dsn' => 'beanstalk://localhost'
+			],
+			'sqs' => [
+				'dsn' => 'sqs://localhost'
+			],
+			'kafka' => [
+				'dsn' => 'kafka://localhost'
+			],
+			'redis' => [
+				'dsn' => 'redis://localhost'
+			],
+			'mongodb' => [
+				'dsn' => 'mongodb://localhost'
+			],
+			'mysql' => [
+				'dsn' => 'mysql://localhost'
+			],
+			'wamp' => [
+				'dsn' => 'wamp://localhost'
+			],
+			'ws' => [
+				'dsn' => 'ws://localhost'
+			],
+		];
+	}
 
-    /**
-     * Test if empty DSN throws EmptyDSNException
-     */
-    public function testEmptyDSNString() {
-        $this->assertThrows(EmptyDSNException::class, function () {
-            QueueConnectionFactoryHelper::getFactory('');
-        });
-        $this->assertThrows(EmptyDSNException::class, function () {
-            QueueConnectionFactoryHelper::getFactory(' ');
-        });
-    }
+	/**
+	 * @throws DSNNotSupportedException
+	 * @throws EmptyDsnException
+	 */
+	#[DataProvider('provideGoodDSN')]
+	public function testIfGoodDNSIsResolvingCorrectly(string $dsn): void
+	{
+		$this->expectException(ComposerPackageMissingException::class);
+		QueueConnectionFactoryHelper::getFactory($dsn);
+	}
+
+	/**
+	 * @throws EmptyDsnException
+	 */
+	public function testIfUnknownDSNIsResolvingCorrectly(): void
+	{
+		$this->expectException(DSNNotSupportedException::class);
+		QueueConnectionFactoryHelper::getFactory(sha1((string)microtime(true)) . ':');
+	}
+
+	/**
+	 * @throws DSNNotSupportedException
+	 */
+	#[DataProvider('provideEmptyDSNString')]
+	public function testEmptyDSNString(string $dsn): void
+	{
+		$this->expectException(EmptyDsnException::class);
+		QueueConnectionFactoryHelper::getFactory($dsn);
+	}
 
 }
