@@ -9,10 +9,8 @@ use Throwable;
 
 class InvalidDsnFormatException extends RuntimeException
 {
-
-	public function __construct(int $code = 0, ?Throwable $previous = null)
-	{
-		parent::__construct('Invalid DSN exception', $code, $previous);
-	}
-
+    public function __construct(int $code = 0, ?Throwable $previous = null)
+    {
+        parent::__construct('Invalid DSN exception', $code, $previous);
+    }
 }
